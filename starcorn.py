@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-USAGE_STR=f"Usage: starcorn.py staticdir [UVICORN_OPTIONS: --host, --port, --help, etc.]"
+USAGE_STR=f"Usage: ./starcorn.py staticdir [UVICORN_OPTIONS: --host, --port, --help, etc.]"
 
 import os
 import sys
