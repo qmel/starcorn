@@ -7,7 +7,7 @@ Starcorn is a simple asynchronous ([ASGI][asgi]) static files web server based o
   * [`starlette`][starlette] ~= 0.31
   * [`uvicorn`][uvicorn] ~= 0.27
 
-Tested on Ubuntu 24.04 LTS and Windows 7
+Tested on Ubuntu 24.04 LTS, Debian 11 and Windows 7
 
 ## Usage
 
