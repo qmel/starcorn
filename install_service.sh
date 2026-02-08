@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USAGE_STR="Usage: ./install_service.sh staticdir [UVICORN_OPTIONS: --host, --port, etc.]"
+USAGE_STR="Usage: sudo ./install_service.sh staticdir [UVICORN_OPTIONS: --host, --port, etc.]"
 # requires superuser privileges
 
 SERVICE_FILE="/etc/systemd/system/starcorn.service"
@@ -29,7 +29,11 @@ Description=Starcorn web server
 Type=simple
 WorkingDirectory=$starcorndir
 ExecStart=$starcorndir/starcorn.py $@
+
+[Install]
+WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
+systemctl enable starcorn
 systemctl restart starcorn
