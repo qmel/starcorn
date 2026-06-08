@@ -24,9 +24,10 @@ touch "$SERVICE_FILE"
 cat << EOF > "$SERVICE_FILE"
 [Unit]
 Description=Starcorn web server
+After=network.target
 
 [Service]
-Type=simple
+Type=exec
 WorkingDirectory=$starcorndir
 ExecStart=$starcorndir/starcorn.py $@
 
