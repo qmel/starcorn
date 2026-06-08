@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Install and start systemd starcorn service
+# If the server is binded to a Unix domain socket (--uds), the service will be started with user=www-data
+
 USAGE_STR="Usage: sudo ./install_service.sh staticdir [UVICORN_OPTIONS: --host, --port, etc.]"
 # requires superuser privileges
 
@@ -16,6 +19,14 @@ if [ ! -d "$1" ]; then
     exit 1
 fi
 
+usergroup=""
+for arg; do
+    if [ "$arg" = "--uds" ]; then
+        usergroup="User=www-data
+Group=www-data"
+    fi
+done
+
 set -e
 
 starcorndir=$( cd -- $( dirname -- "$0") && pwd )
@@ -24,11 +35,13 @@ touch "$SERVICE_FILE"
 cat << EOF > "$SERVICE_FILE"
 [Unit]
 Description=Starcorn web server
+After=network.target
 
 [Service]
-Type=simple
+Type=exec
 WorkingDirectory=$starcorndir
 ExecStart=$starcorndir/starcorn.py $@
+$usergroup
 
 [Install]
 WantedBy=multi-user.target
